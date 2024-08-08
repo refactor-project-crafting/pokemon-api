@@ -2,7 +2,7 @@ import { type Pokemon } from "./types";
 
 const pokemon: Pokemon[] = [
   {
-    id: 1,
+    id: "1",
     name: "Bulbasaur",
     gender: "M",
     type: "plant",
@@ -10,7 +10,7 @@ const pokemon: Pokemon[] = [
     skills: ["latig", "cep"],
   },
   {
-    id: 2,
+    id: "2",
     name: "Charmander",
     gender: "M",
     type: "fire",
@@ -18,7 +18,7 @@ const pokemon: Pokemon[] = [
     skills: ["flame", "scratch"],
   },
   {
-    id: 3,
+    id: "3",
     name: "Squirtel",
     gender: "M",
     type: "water",
