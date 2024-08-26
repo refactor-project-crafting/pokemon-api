@@ -6,5 +6,6 @@ const pokemonRouter = express.Router();
 const pokemonController = new PokemonController(pokemon);
 
 pokemonRouter.get("/", pokemonController.getPokemon);
+pokemonRouter.post("/", pokemonController.createPokemon);
 
 export default pokemonRouter;

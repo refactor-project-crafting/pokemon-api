@@ -3,14 +3,14 @@ import PokemonController from "../PokemonController";
 import { type Pokemon } from "../../../types";
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  jest.clearAllMocks();
 });
 
 describe("Given the getPokemon method of the PokemonController class", () => {
   describe("When it receives a response", () => {
     const req: Partial<Request> = {};
     const res: Partial<Response> = {
-      status: jest.fn(),
+      status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
