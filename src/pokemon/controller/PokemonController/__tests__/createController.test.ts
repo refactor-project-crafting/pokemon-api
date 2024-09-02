@@ -1,4 +1,4 @@
-import { type Response, type Request, type NextFunction } from "express";
+import { type Response, type NextFunction } from "express";
 import {
   type PokemonData,
   type PokemonStructure,
