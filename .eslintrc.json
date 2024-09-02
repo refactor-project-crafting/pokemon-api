@@ -11,6 +11,12 @@
       "rules": {
         "@typescript-eslint/consistent-type-definitions": ["error", "interface"]
       }
+    },
+    {
+      "files": ["**/model/*.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ],
   "parserOptions": {

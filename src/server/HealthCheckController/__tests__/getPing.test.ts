@@ -1,5 +1,5 @@
 import { type Request, type Response } from "express";
-import HealthCheckController from "./HealthCheckController";
+import HealthCheckController from "../HealthCheckController";
 
 beforeEach(() => {
   jest.clearAllMocks();

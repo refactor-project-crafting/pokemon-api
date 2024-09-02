@@ -1,19 +1,20 @@
-import { type Response, type Request } from "express";
+import { type Response, type Request, type NextFunction } from "express";
 import {
   type PokemonData,
-  type Pokemon,
+  type PokemonStructure,
   type PokemonDataRequest,
 } from "../../../types";
 import PokemonController from "../PokemonController";
+import Pokemon from "../../../model/Pokemon";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("Given a method createController of the PokemonController class", () => {
-  const pokemon: Pokemon[] = [
+  const pokemon: PokemonStructure[] = [
     {
-      id: "a",
+      _id: "a",
       name: "Luisius",
       gender: "M",
       skills: [],
@@ -21,7 +22,7 @@ describe("Given a method createController of the PokemonController class", () =>
       type: "",
     },
     {
-      id: "b",
+      _id: "b",
       name: "Martius",
       gender: "F",
       skills: [],
@@ -29,7 +30,7 @@ describe("Given a method createController of the PokemonController class", () =>
       type: "",
     },
   ];
-  const pokemonController = new PokemonController(pokemon);
+  const pokemonController = new PokemonController(pokemon, Pokemon);
 
   const res: Partial<Response> = {
     status: jest.fn().mockReturnThis(),
@@ -62,8 +63,9 @@ describe("Given a method createController of the PokemonController class", () =>
   });
 
   describe("When it receives a response and an existent pokemon named Martius", () => {
-    test("Then it should call the response's method status with 409", () => {
-      const expectedStatusCode = 409;
+    test("Then it should call next function with a 409 'Pokemon already exists' error", () => {
+      const expectedErrorStatusCode = 409;
+      const expectedErrorMessage = "Pokemon already exists";
 
       const martius: PokemonData = {
         name: "Martius",
@@ -75,14 +77,20 @@ describe("Given a method createController of the PokemonController class", () =>
       const req: Partial<PokemonDataRequest> = {
         body: martius,
       };
+      const next: NextFunction = jest.fn();
 
       pokemonController.createPokemon(
         req as PokemonDataRequest,
         res as Response,
-        jest.fn()
+        next
       );
 
-      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(next).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: expectedErrorMessage,
+          statusCode: expectedErrorStatusCode,
+        })
+      );
     });
   });
 });

@@ -7,8 +7,8 @@ export interface PokemonData {
   skills: string[];
 }
 
-export interface Pokemon extends PokemonData {
-  id: string;
+export interface PokemonStructure extends PokemonData {
+  _id: string;
   isShiny: boolean;
 }
 

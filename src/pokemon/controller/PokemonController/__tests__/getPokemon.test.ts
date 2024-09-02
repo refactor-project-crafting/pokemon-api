@@ -1,6 +1,9 @@
 import { type Response, type Request } from "express";
 import PokemonController from "../PokemonController";
-import { type Pokemon } from "../../../types";
+import { type PokemonStructure } from "../../../types";
+import Pokemon from "../../../model/Pokemon";
+import { type Model } from "mongoose";
+import pokemonDataMocks from "../../../mocks/pokemonMocks";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -14,9 +17,9 @@ describe("Given the getPokemon method of the PokemonController class", () => {
       json: jest.fn(),
     };
 
-    const pokemon: Pokemon[] = [
+    const pokemon: PokemonStructure[] = [
       {
-        id: "1",
+        _id: "1",
         name: "Pokeluis",
         gender: "M",
         type: "Test",
@@ -24,7 +27,7 @@ describe("Given the getPokemon method of the PokemonController class", () => {
         skills: [],
       },
       {
-        id: "2",
+        _id: "2",
         name: "Pokemarta",
         gender: "F",
         type: "Test",
@@ -33,18 +36,27 @@ describe("Given the getPokemon method of the PokemonController class", () => {
       },
     ];
 
-    const pokemonController = new PokemonController(pokemon);
+    const pokemonModel: Partial<Model<PokemonStructure>> = {
+      find: jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(pokemonDataMocks),
+      }),
+    };
 
-    test("Then it should call the response's method status with 200", () => {
-      pokemonController.getPokemon(req as Request, res as Response);
+    const pokemonController = new PokemonController(
+      pokemon,
+      pokemonModel as Model<PokemonStructure>
+    );
+
+    test("Then it should call the response's method status with 200", async () => {
+      await pokemonController.getPokemon(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalled();
     });
 
-    test("Then it should call the response's method json with the pokemon Pokeluis and Pokemarta", () => {
-      pokemonController.getPokemon(req as Request, res as Response);
+    test("Then it should call the response's method json with the pokemon Pokeluis and Pokemarta", async () => {
+      await pokemonController.getPokemon(req as Request, res as Response);
 
-      expect(res.json).toHaveBeenCalledWith({ pokemon });
+      expect(res.json).toHaveBeenCalledWith({ pokemon: pokemonDataMocks });
     });
   });
 });

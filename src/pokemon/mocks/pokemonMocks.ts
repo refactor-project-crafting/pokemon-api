@@ -1,8 +1,7 @@
-import { type PokemonStructure } from "./types";
+import { type PokemonStructure } from "../types";
 
-const pokemon: PokemonStructure[] = [
+const pokemonDataMocks: Array<Omit<PokemonStructure, "_id">> = [
   {
-    _id: "1",
     name: "Bulbasaur",
     gender: "M",
     type: "plant",
@@ -10,7 +9,6 @@ const pokemon: PokemonStructure[] = [
     skills: ["latig", "cep"],
   },
   {
-    _id: "2",
     name: "Charmander",
     gender: "M",
     type: "fire",
@@ -18,7 +16,6 @@ const pokemon: PokemonStructure[] = [
     skills: ["flame", "scratch"],
   },
   {
-    _id: "3",
     name: "Squirtel",
     gender: "M",
     type: "water",
@@ -27,4 +24,4 @@ const pokemon: PokemonStructure[] = [
   },
 ];
 
-export default pokemon;
+export default pokemonDataMocks;
