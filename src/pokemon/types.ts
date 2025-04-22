@@ -3,6 +3,7 @@ export interface PokemonStructure {
   name: string;
   weight: number;
   height: number;
-  imageUrl: string;
+  bigImageUrl: string;
+  smallImageUrl: string;
   isCaptured: boolean;
 }

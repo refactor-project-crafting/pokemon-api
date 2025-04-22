@@ -15,7 +15,11 @@ const pokemonSchema = new Schema<PokemonStructure>({
     type: Number,
     required: true,
   },
-  imageUrl: {
+  bigImageUrl: {
+    type: String,
+    required: true,
+  },
+  smallImageUrl: {
     type: String,
     required: true,
   },
