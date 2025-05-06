@@ -1,9 +1,11 @@
+import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import handleErrors from "./middlewares/handleErrors/handleErrors.js";
 import handleEndpointNotFound from "./middlewares/handleEndpointNotFound/handleEndpointNotFound.js";
 import pokemonsRouter from "../pokemon/router/pokemonsRouter.js";
+import handleHealthCheck from "./middlewares/handleHealthCheck/handleHealthCheck.js";
 
 const app = express();
 
@@ -32,6 +34,8 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(express.json());
+
+app.get("/", handleHealthCheck);
 
 app.use("/pokemon", pokemonsRouter);
 
