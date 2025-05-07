@@ -6,7 +6,7 @@ import { PokemonDataDto } from "../dto/types.js";
 import ServerError from "../../server/ServerError/ServerError.js";
 
 class PokemonController implements PokemonControllerStructure {
-  constructor(private pokemonModel: Model<PokemonStructure>) {
+  constructor(private readonly pokemonModel: Model<PokemonStructure>) {
     this.getPokemons = this.getPokemons.bind(this);
     this.addPokemon = this.addPokemon.bind(this);
   }
