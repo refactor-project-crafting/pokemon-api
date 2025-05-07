@@ -10,6 +10,11 @@ const app = express();
 app.use(
   cors({
     origin(requestOrigin, callback) {
+      if (!requestOrigin) {
+        callback(null, true);
+        return;
+      }
+
       const allowedOriginPatterns = process.env.ALLOWED_ORIGIN_PATTERNS;
 
       if (!allowedOriginPatterns) {
@@ -18,7 +23,7 @@ app.use(
       }
 
       const originMatches = allowedOriginPatterns.split(",").some((pattern) => {
-        return new RegExp(pattern).test(requestOrigin!);
+        return new RegExp(pattern).test(requestOrigin);
       });
 
       if (!requestOrigin || originMatches) {
