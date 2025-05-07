@@ -7,3 +7,5 @@ export interface PokemonStructure {
   smallImageUrl: string;
   isCaptured: boolean;
 }
+
+export type GetPokemonResponseBody = { pokemons: PokemonStructure[] };
